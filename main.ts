@@ -9,6 +9,8 @@ const bezel: HTMLInputElement | null = document.getElementById("bezel") as HTMLI
 const clearButton: HTMLButtonElement | null = document.getElementById("clear") as HTMLButtonElement
 const ok: HTMLAudioElement | null = document.getElementById("OK") as HTMLAudioElement
 const invalid: HTMLAudioElement | null = document.getElementById("invalid") as HTMLAudioElement
+const bracket: HTMLInputElement | null = document.getElementById("bracket") as HTMLInputElement
+const bracket_ck: HTMLInputElement | null = document.getElementById("bracket_ck") as HTMLInputElement
 
 type ResultType = [boolean, string]
 type SoundType = "OK" | "invalid"
@@ -110,7 +112,7 @@ class Check {
     }
 }
 
-if (clearButton === null || chassis === null || bezel === null || result === null || module === null) {
+if (clearButton === null || chassis === null || bezel === null || result === null || module === null||bracket_ck ===null || bracket === null) {
     console.log("未找到按键")
     throw new Error("按键不存在")
 } else {
@@ -118,7 +120,7 @@ if (clearButton === null || chassis === null || bezel === null || result === nul
         chassis.focus()
     }
     let ck: Check = new Check()
-    clearButton.addEventListener("click", (evt: Event) => {
+    clearButton.addEventListener("click", () => {
         // evt.preventDefault()
         module.innerHTML = "无"
         result.innerHTML = ""
@@ -128,7 +130,7 @@ if (clearButton === null || chassis === null || bezel === null || result === nul
         console.log("清除按键被点击了")
     })
 
-    chassis.addEventListener("keydown", (evt: KeyboardEvent) => {
+    chassis.addEventListener("keydown", (evt : KeyboardEvent) => {
         if (evt.key === "Enter") {
             // console.log("key code is ",evt.code)
             let res: ResultType = ck.codeCheck(chassis.value, 'chassis')
@@ -143,25 +145,65 @@ if (clearButton === null || chassis === null || bezel === null || result === nul
             showResult(result, res)
         }
     })
-    bezel.addEventListener("keydown", (evt: KeyboardEvent) => {
+    bezel.addEventListener("keydown", (evt : KeyboardEvent) => {
         if (evt.key === "Enter") {
             // console.log("key code is ",evt.code)
             let res: ResultType = ck.codeCheck(bezel.value, 'bezel')
-            // console.log("enter按键被按下")
+            // console.log("enter按键被按下",res)
             if (res[0]) {
-                bezel.value = ""
-                chassis.value = ""
-                chassis.focus()
+                // console.log(bracket_ck.checked)
+                if (bracket_ck.checked){
+                    bracket.focus()
+                }else {
+                    bezel.value = ""
+                    chassis.value = ""
+                    chassis.focus()
+                }
+                
             } else {
                 bezel.value = ""
             }
             showResult(result, res)
         }
     })
-    bezel.addEventListener("focus", (evt: FocusEvent) => {
+    bezel.addEventListener("focus", () => {
 
         if (chassis.value === "") {
             chassis.focus()
+        }
+    })
+    bracket.addEventListener("focus", () => {
+
+        if (chassis.value === "") {
+            chassis.focus()
+        }
+        if (bezel.value === "") {
+            bezel.focus()
+        }
+    })
+    bracket.addEventListener("keydown", (evt : KeyboardEvent)=> {
+        if (evt.key === "Enter") {
+            // console.log("key code is ",evt.code)
+            let res: ResultType 
+            // console.log("enter按键被按下")
+            if (bracket.value === "333.0AY0M.0002") {
+                res = [true, '验证OK:' + bracket.value ]
+                bezel.value = ""
+                bracket.value = ""
+                chassis.value = ""
+                chassis.focus()
+            } else {
+                res = [ false ,'条码错误:' + bracket.value ]
+                bracket.value = ""
+            }
+            showResult(result, res)
+        }
+    })
+    bracket_ck.addEventListener("click",()=>{
+        if ( bracket_ck.checked ){
+            bracket.disabled = false
+        }else {
+            bracket.disabled = true
         }
     })
 
