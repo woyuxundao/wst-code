@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>纬创条码识别</title>
+</head>
+<body>  
+    <nav>
+        
+    </nav>
+    <div id="main" >
+        <div id="title">
+            <h3>纬创条码校验临时系统</h3> 
+        </div>
+        <div id="content">
+            <div class="line">
+                <strong>当前的机型料号:</strong><strong id="module">无</strong>  
+            </div>              
+            <div class="line">
+                <label for="chassis">机型料号：</label>
+                <input type="text" name="" id="chassis">          
+            </div>              
+            <div class="line">
+                <label for="bezel">面板料号：</label>
+                <input type="text" name="" id="bezel">
+            </div>     
+            <div >
+                <a href="#" id="clear" class="button">重置机型</a>
+                <!-- <button id="clear">重置机型</button> -->
+            </div>                  
+
+            <p id="result"></p>
+            <footer>
+                版权所有&copy; huliang
+          </footer>
+        </div>
+    </div>
+    <audio src="./asset/invalid.wav" id="invalid" ></audio>
+    <audio src="./asset/OK.wav" id="OK"></audio>
+
+    <link rel="stylesheet" href="style.css">
+    <script src="main.js"></script>
+</body>
+</html>

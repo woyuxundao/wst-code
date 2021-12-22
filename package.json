@@ -1,0 +1,11 @@
+{
+  "name": "wst-code",
+  "version": "0.1.0",
+  "description": "wst code check",
+  "main": "main.js",
+  "author": "huliang",
+  "license": "MIT",
+  "scripts": {
+    "build":"esbuild main.ts --minify --bundle --outfile=main.js"
+  }
+}
