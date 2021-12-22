@@ -4,3 +4,4 @@
 *.css
 .yarn/
 .yarnrc
+*.zip
